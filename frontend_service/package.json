@@ -1,0 +1,22 @@
+{
+  "name": "frontend-service",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.14.0",
+    "typescript": "^5.2.2",
+    "react-scripts": "^5.0.1"
+  },
+  "devDependencies": {
+    "typescript": "4.9.5",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@types/react-router-dom": "^5.1.17"
+  }
+}
+
