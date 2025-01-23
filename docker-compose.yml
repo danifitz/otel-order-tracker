@@ -13,7 +13,7 @@ services:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana_alloy:4317
       - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://grafana_alloy:4317
     depends_on:
-      - grafana_alloy
+      - grafana-alloy
     ports:
       - "5005:5005"
   order-service:
@@ -29,7 +29,7 @@ services:
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana_alloy:4317
     depends_on:
-      - grafana_alloy
+      - grafana-alloy
     ports:
       - "5001:5001"
   inventory-service:
@@ -44,7 +44,7 @@ services:
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana_alloy:4317
     depends_on:
-      - grafana_alloy
+      - grafana-alloy
     ports:
       - "5002:5002"
   notification-service:
@@ -60,7 +60,7 @@ services:
       - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana_alloy:4317
       - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://grafana_alloy:4317
     depends_on:
-      - grafana_alloy
+      - grafana-alloy
     ports:
       - "5003:5003"
   frontend-service:
@@ -72,12 +72,12 @@ services:
   #   build:
   #     context: ./load_test_service
   #   depends_on:
-  #     - frontend_service
-  #     - user_service
-  #     - order_service
-  #     - inventory_service
-  #     - notification_service
-  #     - grafana_alloy
+  #     - frontend-service
+  #     - user-service
+  #     - order-service
+  #     - inventory-service
+  #     - notification-service
+  #     - grafana-alloy
   grafana-alloy:
     build:
       context: ./alloy
