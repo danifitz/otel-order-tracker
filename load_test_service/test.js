@@ -32,5 +32,11 @@ export default function () {
   });
   check(res, { 'Notification Service: Notification sent': (r) => r.status === 200 });
 
+  // Test creating an order in the order service
+  res = http.post('http://order_service:5001/api/order', JSON.stringify({}), {
+    headers: {'Content-Type': 'application/json'}
+  });
+  check(res, { 'Order Service: Order created': (r) => r.status === 200 });
+
   sleep(1); // Pause for a second between iterations
 }

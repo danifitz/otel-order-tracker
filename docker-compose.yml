@@ -68,16 +68,16 @@ services:
       context: ./frontend_service
     ports:
       - "3000:3000"
-  # load_test_service:
-  #   build:
-  #     context: ./load_test_service
-  #   depends_on:
-  #     - frontend_service
-  #     - user_service
-  #     - order_service
-  #     - inventory_service
-  #     - notification_service
-  #     - grafana_alloy
+  load_test_service:
+    build:
+      context: ./load_test_service
+    depends_on:
+      - frontend_service
+      - user_service
+      - order_service
+      - inventory_service
+      - notification_service
+      - grafana_alloy
   grafana_alloy:
     build:
       context: ./alloy
