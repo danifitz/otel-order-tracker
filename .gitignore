@@ -335,4 +335,4 @@ hs_err_pid*
 replay_pid*
 
 # Alloy
-myconfig.alloy
+alloy/config.alloy
