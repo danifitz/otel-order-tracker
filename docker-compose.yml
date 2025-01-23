@@ -3,21 +3,64 @@ services:
   user_service:
     build:
       context: ./user_service
+    environment:
+      - OTEL_SERVICE_NAME=user_service
+      - OTEL_RESOURCE_ATTRIBUTES=deployment.environment=production,service.namespace=production,service.version=1.0,service.instance.id=demo_host
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_LOGS_EXPORTER=otlp
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana_alloy:4317
+      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://grafana_alloy:4317
+    depends_on:
+      - grafana_alloy
     ports:
       - "5005:5005"
   order_service:
     build:
       context: ./order_service
+    environment:
+      # - NODE_OPTIONS="--require @opentelemetry/auto-instrumentations-node/register"
+      - OTEL_SERVICE_NAME=order_service
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_LOGS_EXPORTER=otlp
+      - OTEL_RESOURCE_ATTRIBUTES=deployment.environment=production,service.namespace=production,service.version=1.0,service.instance.id=demo_host
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana_alloy:4317
+    depends_on:
+      - grafana_alloy
     ports:
       - "5001:5001"
   inventory_service:
     build:
       context: ./inventory_service
+    environment:
+      - OTEL_SERVICE_NAME=inventory_service
+      - OTEL_RESOURCE_ATTRIBUTES=deployment.environment=production,service.namespace=production,service.version=1.0,service.instance.id=demo_host
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_LOGS_EXPORTER=otlp
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana_alloy:4317
+    depends_on:
+      - grafana_alloy
     ports:
       - "5002:5002"
   notification_service:
     build:
       context: ./notification_service
+    environment:
+      - OTEL_SERVICE_NAME=notification_service
+      - OTEL_RESOURCE_ATTRIBUTES=deployment.environment=production,service.namespace=production,service.version=1.0,service.instance.id=demo_host
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_LOGS_EXPORTER=otlp
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana_alloy:4317
+      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://grafana_alloy:4317
+    depends_on:
+      - grafana_alloy
     ports:
       - "5003:5003"
   frontend_service:
@@ -25,12 +68,21 @@ services:
       context: ./frontend_service
     ports:
       - "3000:3000"
-  # load_test_service:
-  #   build:
-  #     context: ./load_test_service
-  #   depends_on:
-  #     - frontend_service
-  #     - user_service
-  #     - order_service
-  #     - inventory_service
-  #     - notification_service
+  load_test_service:
+    build:
+      context: ./load_test_service
+    depends_on:
+      - frontend_service
+      - user_service
+      - order_service
+      - inventory_service
+      - notification_service
+      - grafana_alloy
+  grafana_alloy:
+    build:
+      context: ./alloy
+    ports:
+      - "5006:12345" # Alloy UI port
+      - "4317:4317" # otlp grpc
+    volumes:
+      - ./alloy/config.alloy:/etc/alloy/config.alloy:ro

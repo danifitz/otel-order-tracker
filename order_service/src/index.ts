@@ -1,3 +1,4 @@
+require('@opentelemetry/auto-instrumentations-node/register');
 import express from 'express';
 import routes from './routes';
 import cors from "cors";
