@@ -8,32 +8,32 @@ export const options = {
 
 export default function () {
   // Test the Frontend Service
-  let res = http.get('http://frontend_service:3000');
+  let res = http.get('http://frontend-service:3000');
   check(res, { 'Frontend: Homepage loaded': (r) => r.status === 200 });
 
   // Test the User Service
-  res = http.get('http://user_service:5005/profile');
+  res = http.get('http://user-service:5005/profile');
   check(res, { 'User Service: Profile loaded': (r) => r.status === 200 });
 
   // Test the Order Service
-  res = http.get('http://order_service:5001/api/orders');
+  res = http.get('http://order-service:5001/api/orders');
   check(res, { 'Order Service: Orders loaded': (r) => r.status === 200 });
 
-  res = http.get('http://order_service:5001/api/orders/1');
+  res = http.get('http://order-service:5001/api/orders/1');
   check(res, { 'Order Service: Order details loaded': (r) => r.status === 200 });
 
   // Test the Inventory Service
-  res = http.get('http://inventory_service:5002/inventory');
+  res = http.get('http://inventory-service:5002/inventory');
   check(res, { 'Inventory Service: Inventory loaded': (r) => r.status === 200 });
 
   // Test the Notification Service
-  res = http.post('http://notification_service:5003/notify', JSON.stringify({ message: 'Test notification' }), {
+  res = http.post('http://notification-service:5003/notify', JSON.stringify({ message: 'Test notification' }), {
     headers: { 'Content-Type': 'application/json' },
   });
   check(res, { 'Notification Service: Notification sent': (r) => r.status === 200 });
 
   // Test creating an order in the order service
-  res = http.post('http://order_service:5001/api/order', JSON.stringify({}), {
+  res = http.post('http://order-service:5001/api/order', JSON.stringify({}), {
     headers: {'Content-Type': 'application/json'}
   });
   check(res, { 'Order Service: Order created': (r) => r.status === 200 });

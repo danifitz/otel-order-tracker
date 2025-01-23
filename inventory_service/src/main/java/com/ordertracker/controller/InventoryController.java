@@ -1,5 +1,8 @@
 package com.ordertracker.controller;
 
+import java.util.Map;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,8 +16,13 @@ public class InventoryController {
     }
 
     @GetMapping("/{productId}")
-    public String checkInventory(@PathVariable int productId) {
-        return String.format("Product %d is in stock", productId);
+    public ResponseEntity<?> checkInventory(@PathVariable int productId) {        
+        if (productId <= 0) {
+            return ResponseEntity.badRequest().body("Invalid product ID");
+        }
+
+        Map<String, Object> inventory = Map.of("id", productId, "stock", 10);
+        return ResponseEntity.ok(inventory);
     }
 
     @PutMapping("/{productId}")

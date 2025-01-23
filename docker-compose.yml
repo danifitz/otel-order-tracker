@@ -1,6 +1,6 @@
 version: '3.9'
 services:
-  user_service:
+  user-service:
     build:
       context: ./user_service
     environment:
@@ -16,7 +16,7 @@ services:
       - grafana_alloy
     ports:
       - "5005:5005"
-  order_service:
+  order-service:
     build:
       context: ./order_service
     environment:
@@ -32,7 +32,7 @@ services:
       - grafana_alloy
     ports:
       - "5001:5001"
-  inventory_service:
+  inventory-service:
     build:
       context: ./inventory_service
     environment:
@@ -47,7 +47,7 @@ services:
       - grafana_alloy
     ports:
       - "5002:5002"
-  notification_service:
+  notification-service:
     build:
       context: ./notification_service
     environment:
@@ -63,22 +63,22 @@ services:
       - grafana_alloy
     ports:
       - "5003:5003"
-  frontend_service:
+  frontend-service:
     build:
       context: ./frontend_service
     ports:
       - "3000:3000"
-  load_test_service:
-    build:
-      context: ./load_test_service
-    depends_on:
-      - frontend_service
-      - user_service
-      - order_service
-      - inventory_service
-      - notification_service
-      - grafana_alloy
-  grafana_alloy:
+  # load-test-service:
+  #   build:
+  #     context: ./load_test_service
+  #   depends_on:
+  #     - frontend_service
+  #     - user_service
+  #     - order_service
+  #     - inventory_service
+  #     - notification_service
+  #     - grafana_alloy
+  grafana-alloy:
     build:
       context: ./alloy
     ports:
