@@ -6,12 +6,16 @@ const router = Router();
 router.post('/order', async (req: Request, res: Response) => {
     try {
         // Call user service /profile
+        console.log("Calling user service - get user /profile");
         const userResponse = await axios.get('http://user-service:5005/profile');
         const userProfile = userResponse.data;
+        console.log("Got user profile:", userResponse.data);
 
         // Call inventory service /inventory/1 to check stock
+        console.log("Calling inventory service - checking stock");
         const inventoryResponse = await axios.get('http://inventory-service:5002/inventory/1');
         const inventoryData = inventoryResponse.data;
+        console.log("Got inventory response:", inventoryResponse.data);
 
         // Check if stock is available
         if (!inventoryData || inventoryData.stock <= 0) {
@@ -19,6 +23,7 @@ router.post('/order', async (req: Request, res: Response) => {
         }
 
         // Call notification service
+        console.log("Calling notification service");
         const notificationPayload = {
             message: `Order created for user: ${userProfile.name} with product ID: 1`,
         };

@@ -10,8 +10,8 @@ services:
       - OTEL_METRICS_EXPORTER=otlp
       - OTEL_LOGS_EXPORTER=otlp
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana_alloy:4317
-      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://grafana_alloy:4317
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana-alloy:4317
+      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://grafana-alloy:4317
     depends_on:
       - grafana-alloy
     ports:
@@ -27,7 +27,7 @@ services:
       - OTEL_LOGS_EXPORTER=otlp
       - OTEL_RESOURCE_ATTRIBUTES=deployment.environment=production,service.namespace=production,service.version=1.0,service.instance.id=demo_host
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana_alloy:4317
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana-alloy:4317
     depends_on:
       - grafana-alloy
     ports:
@@ -42,7 +42,7 @@ services:
       - OTEL_METRICS_EXPORTER=otlp
       - OTEL_LOGS_EXPORTER=otlp
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana_alloy:4317
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana-alloy:4317
     depends_on:
       - grafana-alloy
     ports:
@@ -57,8 +57,8 @@ services:
       - OTEL_METRICS_EXPORTER=otlp
       - OTEL_LOGS_EXPORTER=otlp
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
-      - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana_alloy:4317
-      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://grafana_alloy:4317
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://grafana-alloy:4317
+      - OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://grafana-alloy:4317
     depends_on:
       - grafana-alloy
     ports:
@@ -68,16 +68,16 @@ services:
       context: ./frontend_service
     ports:
       - "3000:3000"
-  # load-test-service:
-  #   build:
-  #     context: ./load_test_service
-  #   depends_on:
-  #     - frontend-service
-  #     - user-service
-  #     - order-service
-  #     - inventory-service
-  #     - notification-service
-  #     - grafana-alloy
+  load-test-service:
+    build:
+      context: ./load_test_service
+    depends_on:
+      - frontend-service
+      - user-service
+      - order-service
+      - inventory-service
+      - notification-service
+      - grafana-alloy
   grafana-alloy:
     build:
       context: ./alloy

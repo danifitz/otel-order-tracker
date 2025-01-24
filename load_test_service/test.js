@@ -2,7 +2,7 @@ import http from 'k6/http';
 import { check, sleep } from 'k6';
 
 export const options = {
-  vus: 10, // Number of virtual users
+  vus: 3, // Number of virtual users
   duration: '1h', // Test duration
 };
 
@@ -23,7 +23,7 @@ export default function () {
   check(res, { 'Order Service: Order details loaded': (r) => r.status === 200 });
 
   // Test the Inventory Service
-  res = http.get('http://inventory-service:5002/inventory');
+  res = http.get('http://inventory-service:5002/inventory/2');
   check(res, { 'Inventory Service: Inventory loaded': (r) => r.status === 200 });
 
   // Test the Notification Service

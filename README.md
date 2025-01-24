@@ -8,3 +8,7 @@
 4. Access the frontend on `http://localhost:3000`
 5. Access the Grafana Alloy UI on `http://localhost:5006`
 
+## Learnings
+
+1. Javascript - auto-instrumentation agent doesn't support logging or metrics (yet) - https://github.com/open-telemetry/opentelemetry-js/issues/4552
+
