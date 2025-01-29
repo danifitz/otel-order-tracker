@@ -2,6 +2,7 @@ require('@opentelemetry/auto-instrumentations-node/register');
 import express from 'express';
 import routes from './routes';
 import cors from "cors";
+import logger from './logger';
 
 const app = express();
 
@@ -13,6 +14,6 @@ app.use('/api', routes);
 const PORT = process.env.PORT || 5001;
 
 app.listen(PORT, () => {
-    console.log(`Order Service running on http://localhost:${PORT}`);
+    logger.info(`Order Service running on http://localhost:${PORT}`);
 });
 
